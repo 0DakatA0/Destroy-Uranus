@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -16,7 +17,7 @@ const RegisterScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require("../Design/WelcomePage.png")} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Register</Text>
       </View>
@@ -66,7 +67,7 @@ const RegisterScreen = ({ navigation }) => {
       >
         <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -75,7 +76,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#c242f5",
   },
   header: {
     display: "flex",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 5,
     padding: 10,
-    width: "80%",
+    width: "60%",
     borderRadius: 20,
     backgroundColor: "#f5a742",
     color: "white",

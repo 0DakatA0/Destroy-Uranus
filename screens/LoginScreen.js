@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { useState } from "react";
 import { auth } from "../config/firebase";
@@ -14,7 +15,7 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require("../Design/WelcomePage.png")} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Log In</Text>
       </View>
@@ -55,7 +56,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity /*onPress={() => navigation.navigate("Register")}*/>
         <Text style={{color: "white"}}>Sign up here.</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#c242f5",
   },
   header: {
     display: "flex",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 5,
     padding: 10,
-    width: "80%",
+    width: "60%",
     borderRadius: 20,
     backgroundColor: "#f5a742",
     color: "white",
