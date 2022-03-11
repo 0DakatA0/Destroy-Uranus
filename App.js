@@ -1,9 +1,29 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { auth, db } from "./config/firebase";
+import HomeScreen from "./screens/HomeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 
+const Stack = createNativeStackNavigator();
+
 const App = () => {
-  return <LeaderBoard />;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {/* LoginScreen */}
+        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+
+        {/* HomeScreen */}
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default App;
