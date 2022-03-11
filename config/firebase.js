@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 // import { getFirestore } from "firebase/firestore";
 // import { getAuth } from "firebase/auth";
-import {
+const {
   API_KEY,
   AUTH_DOMAIN,
   PROJECT_ID,
@@ -9,7 +9,7 @@ import {
   MESSAGE_SENDER_ID,
   APP_ID,
   MEASUREMENT_ID,
-} from "@env";
+} = require("./env.json");
 
 const firebaseConfig = {
   apiKey: API_KEY,
