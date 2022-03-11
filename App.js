@@ -4,6 +4,7 @@ import { auth, db } from "./config/firebase";
 import HomeScreen from "./screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoginScreen from "./screens/LoginScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ const App = () => {
         }}
       >
         {/* LoginScreen */}
+        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
 
         {/* HomeScreen */}
         <Stack.Screen name="Home" component={HomeScreen} />

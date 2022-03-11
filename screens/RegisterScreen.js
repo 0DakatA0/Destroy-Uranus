@@ -1,0 +1,110 @@
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { auth } from "../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+
+const RegisterScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Register</Text>
+      </View>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        value={username}
+        onChangeText={(text) => setUsername(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Password"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        secureTextEntry={true}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm password"
+        value={confirmPassword}
+        onChangeText={(text) => setConfirmPassword(text)}
+        secureTextEntry={true}
+      />
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              user.displayName = username;
+              // ...
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ..
+            });
+
+          // navigation.navigate("Home");
+        }}
+      >
+        <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#c242f5",
+  },
+  header: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  title: {
+    fontSize: 30,
+    color: "white",
+  },
+  input: {
+    height: 40,
+    margin: 5,
+    padding: 10,
+    width: "80%",
+    borderRadius: 20,
+    backgroundColor: "#f5a742",
+    color: "white",
+  },
+  btn: {
+    width: "40%",
+    height: 50,
+    backgroundColor: "#f5a742",
+    borderRadius: 25,
+    margin: 12,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+export default RegisterScreen;

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/core";
 import { auth } from "../config/firebase";
@@ -10,42 +10,52 @@ const HomeScreen = () => {
   const handleSignOut = async () => {};
 
   return (
-    <View style={styles.container}>
-      {/* Profile Picture */}
-      <Image style={styles.userImg} source={require("../assets/favicon.png")} />
+    <ImageBackground
+      source={require("../Design/WelcomePage.png")}
+      style={{
+        flex: 1,
+      }}
+    >
+      <View style={styles.container}>
+        {/* Profile Picture */}
+        <Image
+          style={styles.userImg}
+          source={require("../assets/favicon.png")}
+        />
 
-      {/* Username */}
-      <Text
-        style={{
-          color: "white",
-          fontWeight: "700",
-          fontSize: 30,
-        }}
-      >
-        Hello, John!
-      </Text>
+        {/* Username */}
+        <Text
+          style={{
+            color: "white",
+            fontWeight: "700",
+            fontSize: 30,
+          }}
+        >
+          Hello, John!
+        </Text>
 
-      {/* User Points */}
-      <Text
-        style={{
-          color: "white",
-          fontWeight: "700",
-          fontSize: 25,
-          marginBottom: 30,
-        }}
-      >
-        You have 0 points!
-      </Text>
+        {/* User Points */}
+        <Text
+          style={{
+            color: "white",
+            fontWeight: "700",
+            fontSize: 25,
+            marginBottom: 30,
+          }}
+        >
+          You have 0 points!
+        </Text>
 
-      {/* Start a New Quiz button */}
-      <Button onPress={() => {}} title="Start a new Quiz" />
+        {/* Start a New Quiz button */}
+        <Button onPress={() => {}} title="Start a new Quiz" />
 
-      {/* Leaderboard button */}
-      <Button onPress={() => {}} title="Leaderboard" />
+        {/* Leaderboard button */}
+        <Button onPress={() => {}} title="Leaderboard" />
 
-      {/* Logout button? */}
-      <Button onPress={() => {}} title="Logout" />
-    </View>
+        {/* Logout button? */}
+        <Button onPress={() => {}} title="Logout" />
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -56,7 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#744EBF",
   },
   userImg: {
     height: 150,
