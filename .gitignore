@@ -8,6 +8,7 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+*.log
 web-build/
 
 # macOS
@@ -15,3 +16,4 @@ web-build/
 
 # Ignore .env files
 env.json
+
