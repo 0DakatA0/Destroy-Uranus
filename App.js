@@ -21,9 +21,9 @@ const App = () => {
           headerShown: false,
         }}
         component={user ? HomeScreen : LoginScreen}
+        // taq proverka tuk mai ne bachka, poneje vliza v home direktno
       >
-        <Stack.Screen name="Home" component={HomeScreen}
-        />
+        <Stack.Screen name="Home" component={HomeScreen}/>
 
         <Stack.Screen name="Login" component={LoginScreen} />
 
