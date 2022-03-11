@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
-// import { getFirestore } from "firebase/firestore";
-// import { getAuth } from "firebase/auth";
-import {
+import { getAuth } from "firebase/auth";
+
+
+const {
   API_KEY,
   AUTH_DOMAIN,
   PROJECT_ID,
@@ -9,7 +10,7 @@ import {
   MESSAGE_SENDER_ID,
   APP_ID,
   MEASUREMENT_ID,
-} from "@env";
+} = require("./env.json");
 
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -22,5 +23,4 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// export const db = getFirestore(app);
-// export const auth = getAuth(app);
+export const auth = getAuth(app);

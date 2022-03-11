@@ -1,21 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { auth, db } from "./config/firebase"
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text>App</Text>
-    </View>
-  )
-}
+  return <LoginScreen />;
+};
 
-export default App
+export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
-  }
-})
+    alignItems: "center",
+  },
+});
