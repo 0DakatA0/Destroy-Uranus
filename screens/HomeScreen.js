@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/core";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
+import { getDoc, doc } from "firebase/firestore";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-
-  const handleSignOut = async () => {};
+  const user = auth.currentUser;
+  // console.log(user.uid)
+  // const {username, score} = getDoc(doc(db, "users", user.uid)) 
 
   return (
     <ImageBackground
@@ -53,7 +55,7 @@ const HomeScreen = () => {
         <Button onPress={() => {}} title="Leaderboard" />
 
         {/* Logout button? */}
-        <Button onPress={() => {}} title="Logout" />
+        <Button onPress={() => {navigation.navigate("Login")}} title="Logout" />
       </View>
     </ImageBackground>
   );

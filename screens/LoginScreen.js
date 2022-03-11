@@ -39,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              console.log(user.uid);
+              console.log(user.uid)
             })
             .catch((error) => {
               const errorCode = error.code;
@@ -47,13 +47,13 @@ const LoginScreen = ({ navigation }) => {
               console.log(errorCode + ": " + errorMessage);
             });
 
-          // navigation.navigate("Home");
+            navigation.navigate("Home");
         }}
       >
         <Text style={{ color: "white" }}>Log In</Text>
       </TouchableOpacity>
       <Text style={{color: "white"}}>Don't have an account?</Text>
-      <TouchableOpacity /*onPress={() => navigation.navigate("Register")}*/>
+      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={{color: "white"}}>Sign up here.</Text>
       </TouchableOpacity>
     </ImageBackground>

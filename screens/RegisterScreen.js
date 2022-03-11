@@ -4,11 +4,13 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { doc, setDoc } from "@firebase/firestore";
+import { useRef } from "react/cjs/react.development";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -16,8 +18,21 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const initUser = async (username, id) => {
+    const user = {
+      username: username,
+      imageURL: "",
+      score: 0,
+    };
+
+    await setDoc(doc(db, "users", id), user);
+  };
+
   return (
-    <ImageBackground source={require("../Design/WelcomePage.png")} style={styles.container}>
+    <ImageBackground
+      source={require("../Design/WelcomePage.png")}
+      style={styles.container}
+    >
       <View style={styles.header}>
         <Text style={styles.title}>Register</Text>
       </View>
@@ -53,16 +68,17 @@ const RegisterScreen = ({ navigation }) => {
           createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               const user = userCredential.user;
-              user.displayName = username;
+              initUser(username, user.uid);
               // ...
             })
             .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
+              console.log(errorCode + ": " + errorMessage);
               // ..
             });
 
-          // navigation.navigate("Home");
+          navigation.navigate("Home");
         }}
       >
         <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>
