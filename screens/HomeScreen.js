@@ -5,6 +5,7 @@ import { db, auth, rdb  } from "../config/firebase";
 import { ref, child, get } from "firebase/database";
 import Button from "../components/Button";
 
+
 const HomeScreen = () => {
   const navigation = useNavigation();
   const user = auth.currentUser
