@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { auth, db, rdb } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -65,21 +66,28 @@ const RegisterScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              initUser(username, user.uid);
-              setEmail("");
-              setPassword("");
-              navigation.navigate("Home");
-              // ...
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log(errorCode + ": " + errorMessage);
-              // ..
-            });
+          if (password === confirmPassword) {
+            createUserWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                const user = userCredential.user;
+                initUser(username, user.uid);
+                setEmail("");
+                setPassword("");
+                navigation.navigate("Home");
+                // ...
+              })
+              .catch((error) => {             
+                Alert.alert(
+                  "Error ocurred during register!",
+                  "Your password must be 6 or more characters long.",
+                  [{ text: "OK" }]
+                );
+              });
+          } else {
+            Alert.alert("Passwords do not match!", "", [{ text: "OK" }]);
+            setPassword("");
+            setConfirmPassword("");
+          }
         }}
       >
         <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>

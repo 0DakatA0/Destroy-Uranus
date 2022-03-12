@@ -5,6 +5,7 @@ import { db, auth, rdb  } from "../config/firebase";
 import { ref, child, get } from "firebase/database";
 import Button from "../components/Button";
 
+
 const HomeScreen = () => {
   const navigation = useNavigation();
   const user = auth.currentUser
@@ -13,9 +14,7 @@ const HomeScreen = () => {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      // const data = await getDoc(doc(db, "users", user.uid));
-
+    const fetchUserData = () => {
       get(child(ref(rdb), `users/${user.uid}`)).then((snapshot) => {
         if (snapshot.exists()) {
           setUsername(snapshot.val().username);
@@ -69,12 +68,15 @@ const HomeScreen = () => {
         </Text>
 
         {/* Start a New Quiz button */}
-        <Button onPress={() => {}} title="Start a new Quiz" />
+        <Button onPress={() => {navigation.navigate("Quiz")}} title="Start a new Quiz" />
+
+        {/* Fact Of The Day button */}
+        <Button onPress={() => {navigation.navigate("Fact of the Day")}} title="Fact of the Day" />
 
         {/* Leaderboard button */}
         <Button onPress={() => {navigation.navigate("LeaderBoard")}} title="Leaderboard" />
 
-        {/* Logout button? */}
+        {/* Logout button */}
         <Button
           onPress={() => {
             navigation.navigate("Login");

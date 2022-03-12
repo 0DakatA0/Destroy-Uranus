@@ -3,35 +3,36 @@ import React, { useState, useEffect } from "react";
 import { db, rdb } from "../config/firebase";
 import { get, child, ref } from "firebase/database";
 import ListElements from "../components/ListElements";
+import Button from "../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 const LeaderBoard = () => {
   const [leaders, setLeaders] = useState([]);
+  const navigation = useNavigation();
+  const reference = ref(rdb);
 
-  useEffect(() => {
-    const fetchLeaders = () => {
-      get(child(ref(rdb), "users/"))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            setLeaders(Object.values(data));
-          } else {
-            console.log("No data available");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  const fetchLeaders = () => {
+    get(child(reference, "users/"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const sort = Object.values(data).sort((a, b) =>
+            a.score > b.score ? -1 : 1
+          );
+          const res = sort.splice(0, 5);
+          setLeaders(res);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-      // setLeaders(leaders.splice(0, 5));
-    };
+  fetchLeaders();
 
-    // console.log(fetchLeaders())
-    // setLeaders(
-    //   leaders.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
-    // );
-
-    fetchLeaders()
-  });
+  useEffect(() => {});
 
   return (
     <ImageBackground
@@ -50,6 +51,11 @@ const LeaderBoard = () => {
         )}
         keyExtractor={(item) => item.id}
       />
+      <Button
+        onPress={() => navigation.navigate("Home")}
+        title="Go Back!"
+        style={styles.btn}
+      />
     </ImageBackground>
   );
 };
@@ -60,8 +66,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
   list: {
     marginTop: "30%",
-  },
+    width: "100%",
+  }
 });

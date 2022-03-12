@@ -7,61 +7,27 @@ import {
   TouchableOpacity,
   Modal,
   Animated,
-  ImageBackground
+  ImageBackground,
+  ScrollView,
 } from "react-native";
-// import { db } from "../config/firebase";
-// import {
-//   collection,
-//   getDoc,
-//   getDocs,
-//   addDoc,
-//   updateDoc,
-//   doc,
-//   deleteDoc,
-// } from "firebase/firestore";
-import { rdb } from "../config/firebase";
-import { getDatabase, get, onValue, ref } from "firebase/database";
+import { rdb, auth } from "../config/firebase";
+import {
+  getDatabase,
+  get,
+  onValue,
+  ref,
+  set,
+  update,
+  child,
+} from "firebase/database";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-// const data = [
-//   {
-//     question: "What's the biggest planet in our solar system?",
-//     options: ["Jupiter", "Saturn", "Neptune", "Mercury"],
-//     correct_option: "Jupiter",
-//   },
-//   {
-//     question: "What attraction in India is one of the famus in the world?",
-//     options: ["Chand Minar", "Taj Mahal", "Stadium"],
-//     correct_option: "Taj Mahal",
-//   },
-//   {
-//     question: "What land animal can open its mouth the widest?",
-//     options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
-//     correct_option: "Hippo",
-//   },
-//   {
-//     question: "What is the largest animal on Earth?",
-//     options: [
-//       "The African elephant",
-//       "The blue whale",
-//       "The sperm whale",
-//       "The giant squid",
-//     ],
-//     correct_option: "The blue whale",
-//   },
-//   {
-//     question: "What is the only flying mammal?",
-//     options: ["The bat", "The flying squirrel", "The bald eagle", "The colugo"],
-//     correct_option: "The bat",
-//   },
-// ];
+import Button from "../components/Button";
 
 const { width, height } = Dimensions.get("window");
 
 const QuizScreen = () => {
-  // const allQuestions = data;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
@@ -69,8 +35,11 @@ const QuizScreen = () => {
   const [score, setScore] = useState(0);
   const [showNextButton, setShowNextButton] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
 
   const [quizData, setQuizData] = useState([]);
+
+  const user = auth.currentUser;
 
   // const db = getDatabase();
 
@@ -78,9 +47,25 @@ const QuizScreen = () => {
     const quizRef = ref(rdb, "quiz");
     onValue(quizRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+      // console.log(data);
       setQuizData(data);
     });
+
+    const fetchUserData = () => {
+      get(child(ref(rdb), `users/${user.uid}`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            setScore(snapshot.val().score);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    fetchUserData();
   }, []);
 
   const validateAnswer = (selectedOption) => {
@@ -91,8 +76,13 @@ const QuizScreen = () => {
     if (selectedOption == correctOption) {
       // Set Score
       setScore(score + 1);
+      update(ref(rdb, "users/" + user.uid), {
+        score,
+      });
     }
-    // Explanation to the Answer
+
+    // Set Explanation to Show
+    setShowExplanation(true);
 
     // Show Next Button
     setShowNextButton(true);
@@ -169,9 +159,10 @@ const QuizScreen = () => {
             color: colors.white,
             fontSize: 30,
             fontWeight: "700",
+            alignSelf: "center",
+            marginBottom: 10,
           }}
         >
-          {/* {allQuestions[currentQuestionIndex]?.question} */}
           {quizData[currentQuestionIndex]?.question}
         </Text>
         <Image
@@ -180,25 +171,22 @@ const QuizScreen = () => {
             width: 200,
             borderRadius: 25,
             marginTop: 10,
-            alignSelf: 'center',
+            alignSelf: "center",
           }}
-          // source={require(quizData[currentQuestionIndex]?.img)}
-          // source={require("../Design/Galaxy.jpg")}
-          // source={require(quizData[currentQuestionIndex]?.img)}
-
-          source={{uri: quizData[currentQuestionIndex]?.img}}
+          source={{ uri: quizData[currentQuestionIndex]?.img }}
         />
       </View>
     );
   };
 
   const renderOptions = () => {
-    // {allQuestions[currentQuestionIndex]?.options.map((option) => (
     return (
       <View>
         {quizData[currentQuestionIndex]?.options.map((option) => (
           <TouchableOpacity
-            onPress={() => validateAnswer(option)}
+            onPress={() => {
+              validateAnswer(option);
+            }}
             disabled={isOptionDisabled}
             key={option}
             style={{
@@ -232,7 +220,7 @@ const QuizScreen = () => {
                 style={{
                   width: 30,
                   height: 30,
-                  borderRadius: 30 / 2,
+                  borderRadius: 15,
                   backgroundColor: colors.success,
                   justifyContent: "center",
                   alignItems: "center",
@@ -251,7 +239,7 @@ const QuizScreen = () => {
                 style={{
                   width: 30,
                   height: 30,
-                  borderRadius: 30 / 2,
+                  borderRadius: 15,
                   backgroundColor: colors.error,
                   justifyContent: "center",
                   alignItems: "center",
@@ -292,7 +280,7 @@ const QuizScreen = () => {
               fontWeight: "700",
             }}
           >
-            Next
+            Next Question
           </Text>
         </TouchableOpacity>
       );
@@ -338,12 +326,6 @@ const QuizScreen = () => {
         flex: 1,
       }}
     >
-      <ImageBackground
-      source={require("../Design/WelcomePage.png")}
-      style={{
-        flex: 1,
-      }}
-    >
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
       <View
         style={{
@@ -362,6 +344,69 @@ const QuizScreen = () => {
 
         {/* Options */}
         {renderOptions()}
+
+        {/* Explanation Window */}
+        <Modal
+          visible={showExplanation}
+          animationType="fade"
+          transparent={true}
+        >
+          <View
+            style={{
+              backgroundColor: "#000000aa",
+              flex: 1,
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#744ebf",
+                margin: 30,
+                padding: 20,
+                borderRadius: 10,
+                flex: 1,
+              }}
+            >
+              <ScrollView>
+                <Text
+                  style={{
+                    fontSize: 30,
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignSelf: "center",
+                    color: colors.white,
+                  }}
+                >
+                  {quizData[currentQuestionIndex]?.answer}...
+                </Text>
+                <Image
+                  style={{
+                    height: 200,
+                    width: 200,
+                    borderRadius: 25,
+                    marginTop: 10,
+                    alignSelf: "center",
+                    marginBottom: 20,
+                  }}
+                  source={{ uri: quizData[currentQuestionIndex]?.img }}
+                />
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: colors.white,
+                  }}
+                >
+                  {quizData[currentQuestionIndex]?.explanation}
+                </Text>
+                <Button
+                  title="Close"
+                  onPress={() => {
+                    setShowExplanation(false);
+                  }}
+                />
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
 
         {/* Next Button */}
         {renderNextButton()}
@@ -445,25 +490,7 @@ const QuizScreen = () => {
             </View>
           </View>
         </Modal>
-
-        {/* Background Image USE <ImageBackground> */}
-        {/* <Image
-          source={require("../Design/WelcomePage.png")}
-          style={{
-            //   flex: 1,
-            width: sizes.width,
-            height: sizes.height,
-            zIndex: -1,
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            opacity: 0.5,
-          }}
-          resizeMode={"cover"}
-        /> */}
       </View>
-      </ImageBackground>
     </SafeAreaView>
   );
 };
