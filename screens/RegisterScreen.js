@@ -11,6 +11,7 @@ import { auth, db, rdb } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { ref, set } from "firebase/database";
+// import UserIcons from "../components/UserIcons";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -19,9 +20,10 @@ const RegisterScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const initUser = async (username, id) => {
+
     const user = {
       username: username,
-      imageURL: "",
+      imageURL: Math.floor(Math.random() * UserIcons.length),
       score: 0,
       id,
     };

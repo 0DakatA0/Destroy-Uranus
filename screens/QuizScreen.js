@@ -24,7 +24,7 @@ import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../components/Button";
-import CountDown from "react-native-countdown-component";
+// import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");

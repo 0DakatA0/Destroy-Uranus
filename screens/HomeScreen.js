@@ -1,8 +1,15 @@
-import { StyleSheet, Text, View, Image, ImageBackground,TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { db, auth, rdb } from "../config/firebase";
-import { ref, child, get } from "firebase/database";
+import { auth, rdb } from "../config/firebase";
+import { ref, child, get, update } from "firebase/database";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
@@ -11,43 +18,36 @@ const HomeScreen = () => {
 
   const [username, setUsername] = useState("");
   const [score, setScore] = useState(0);
-
-  const userIcons = ["../assets/UserIcons/w1.png", "../assets/UserIcons/m2.png", "../assets/UserIcons/w3.png",
-                      "../assets/UserIcons/m4.png", "../assets/UserIcons/w5.png", "../assets/UserIcons/m6.png",
-                      "../assets/UserIcons/w7.png", "../assets/UserIcons/m1.png", "../assets/UserIcons/w2.png",
-                      "../assets/UserIcons/m3.png", "../assets/UserIcons/w4.png", "../assets/UserIcons/m5.png",
-                      "../assets/UserIcons/w6.png", "../assets/UserIcons/m7.png"]
-
-  const [icon, setIcon] = useState("");
-  var iconIterator = 0;
+  const [icon, setIcon] = useState(0);
 
   const changeIcon = () => {
-    if(iconIterator == userIcons.length){
-      iconIterator = -1;
-    }
-    iconIterator ++;
-    //setIcon(userIcons[iconIterator])
-    console.log("AFTER SET =  " +  iconIterator)
-    console.log(userIcons[iconIterator])
-  }
+    let imageURL = icon === userIcons.length - 1 ? 0 : icon + 1;
+
+    setIcon(imageURL);
+
+    update(ref(rdb, "users/" + user.uid), {
+      imageURL,
+    });
+  };
+
+  const userIcons = [
+    require(`../assets/UserIcons/w1.png`),
+    require(`../assets/UserIcons/m2.png`),
+    require(`../assets/UserIcons/w3.png`),
+    require(`../assets/UserIcons/w5.png`),
+    require(`../assets/UserIcons/m4.png`),
+    require(`../assets/UserIcons/m6.png`),
+    require(`../assets/UserIcons/w7.png`),
+    require(`../assets/UserIcons/m1.png`),
+    require(`../assets/UserIcons/w2.png`),
+    require(`../assets/UserIcons/m3.png`),
+    require(`../assets/UserIcons/w4.png`),
+    require(`../assets/UserIcons/m5.png`),
+    require(`../assets/UserIcons/w6.png`),
+    require(`../assets/UserIcons/m7.png`),
+  ];
 
   useEffect(() => {
-<<<<<<< HEAD
-    const fetchUserData = () => {
-      get(child(ref(rdb), `users/${user.uid}`)).then((snapshot) => {
-        if (snapshot.exists()) {
-          setUsername(snapshot.val().username);
-          setScore(snapshot.val().score);
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-    };
-    fetchUserData();
-  });
-=======
     const unsubscribe = navigation.addListener("focus", () => {
       const fetchUserData = () => {
         get(child(ref(rdb), `users/${user.uid}`))
@@ -55,7 +55,8 @@ const HomeScreen = () => {
             if (snapshot.exists()) {
               setUsername(snapshot.val().username);
               setScore(snapshot.val().score);
-              console.log(score);
+              setIcon(snapshot.val().imageURL);
+              // console.log(snapshot.val().imageURL);
             } else {
               console.log("No data available");
             }
@@ -84,7 +85,6 @@ const HomeScreen = () => {
     // };
     // fetchUserData();
   }, [navigation]);
->>>>>>> c596b1cb0098b20970eda682cf90f3e6e6da8f81
 
   return (
     <ImageBackground
@@ -95,8 +95,8 @@ const HomeScreen = () => {
     >
       <View style={styles.container}>
         {/* Profile Picture */}
-        <TouchableOpacity onPress={() => changeIcon()}>
-            <Image style={styles.userImg} source={require("../assets/UserIcons/w1.png")} />
+        <TouchableOpacity onPress={changeIcon}>
+          <Image style={styles.userImg} source={userIcons[icon]} />
         </TouchableOpacity>
 
         {/* Username */}
