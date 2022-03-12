@@ -1,46 +1,52 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { auth, db } from "./config/firebase";
+import React, { useEffect } from "react";
+import { auth, db, rdb } from "./config/firebase";
+import { getDatabase, get, onValue, ref } from "firebase/database";
 import HomeScreen from "./screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import LeaderBoard from "./screens/LeaderBoard";
-import { onAuthStateChanged } from "firebase/auth";
+import QuizScreen from "./screens/QuizScreen";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const user = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("Login Successful");
-    } else {
-      console.log("Login Failed");
-    }
-  });
+  const user = auth.currentUser;
 
   return (
     <NavigationContainer>
       <Stack.Navigator
-        // initialRouteName={user ? "Home" : "Login"}
-        initialRouteName="LeaderBoard"
+        initialRouteName={user ? "Home" : "Login"}
         screenOptions={{
           headerShown: false,
         }}
         component={HomeScreen}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
+
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            user,
+          }}
+        />
 
         <Stack.Screen name="Login" component={LoginScreen} />
 
         <Stack.Screen name="Register" component={RegisterScreen} />
-
-        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
-
       </Stack.Navigator>
     </NavigationContainer>
+    // <QuizScreen />
   );
 };
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
