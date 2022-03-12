@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const LeaderBoard = () => {
   const [leaders, setLeaders] = useState([]);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const reference = ref(rdb);
 
   const fetchLeaders = () => {
@@ -16,10 +16,11 @@ const LeaderBoard = () => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const sort = Object.values(data).sort((a, b) => (a.score > b.score ? -1 : 1))
-          // console.log();
-          // const res = sort.splice(0, 5);
-          setLeaders(sort);
+          const sort = Object.values(data).sort((a, b) =>
+            a.score > b.score ? -1 : 1
+          );
+          const res = sort.splice(0, 5);
+          setLeaders(res);
         } else {
           console.log("No data available");
         }
@@ -27,7 +28,6 @@ const LeaderBoard = () => {
       .catch((error) => {
         console.error(error);
       });
-
   };
 
   fetchLeaders();
@@ -51,7 +51,11 @@ const LeaderBoard = () => {
         )}
         keyExtractor={(item) => item.id}
       />
-      <Button onPress={() => navigation.navigate("Home")} title="Go Back!" />
+      <Button
+        onPress={() => navigation.navigate("Home")}
+        title="Go Back!"
+        style={styles.btn}
+      />
     </ImageBackground>
   );
 };
@@ -61,12 +65,11 @@ export default LeaderBoard;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    
   },
   list: {
     marginTop: "30%",
     width: "100%",
-  },
+  }
 });

@@ -10,8 +10,16 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { rdb } from "../config/firebase";
-import { getDatabase, get, onValue, ref } from "firebase/database";
+import { rdb, auth } from "../config/firebase";
+import {
+  getDatabase,
+  get,
+  onValue,
+  ref,
+  set,
+  update,
+  child,
+} from "firebase/database";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -31,15 +39,33 @@ const QuizScreen = () => {
 
   const [quizData, setQuizData] = useState([]);
 
+  const user = auth.currentUser;
+
   // const db = getDatabase();
 
   useEffect(() => {
     const quizRef = ref(rdb, "quiz");
     onValue(quizRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+      // console.log(data);
       setQuizData(data);
     });
+
+    const fetchUserData = () => {
+      get(child(ref(rdb), `users/${user.uid}`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            setScore(snapshot.val().score);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    fetchUserData();
   }, []);
 
   const validateAnswer = (selectedOption) => {
@@ -50,6 +76,9 @@ const QuizScreen = () => {
     if (selectedOption == correctOption) {
       // Set Score
       setScore(score + 1);
+      update(ref(rdb, "users/" + user.uid), {
+        score,
+      });
     }
 
     // Set Explanation to Show
