@@ -6,6 +6,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import QuizScreen from "./screens/QuizScreen";
+import DailyFact from "./screens/DailyFact";
 import LeaderBoard from "./screens/LeaderBoard";
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +31,10 @@ const App = () => {
         <Stack.Screen name="Register" component={RegisterScreen} />
 
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+
+        <Stack.Screen name="Quiz" component={QuizScreen} />
+
+        <Stack.Screen name="Fact of the Day" component={DailyFact} />
 
       </Stack.Navigator>
     </NavigationContainer>
