@@ -69,12 +69,15 @@ const HomeScreen = () => {
         </Text>
 
         {/* Start a New Quiz button */}
-        <Button onPress={() => {}} title="Start a new Quiz" />
+        <Button onPress={() => {navigation.navigate("Quiz")}} title="Start a new Quiz" />
+
+        {/* Fact Of The Day button */}
+        <Button onPress={() => {navigation.navigate("Fact of the Day")}} title="Fact of the Day" />
 
         {/* Leaderboard button */}
         <Button onPress={() => {navigation.navigate("LeaderBoard")}} title="Leaderboard" />
 
-        {/* Logout button? */}
+        {/* Logout button */}
         <Button
           onPress={() => {
             navigation.navigate("Login");
