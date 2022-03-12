@@ -108,12 +108,12 @@ const HomeScreen = () => {
         {/* Username */}
         <Text
           style={{
-            color: "white",
+            color: "#15f9fc",
             fontWeight: "700",
             fontSize: 30,
           }}
         >
-          Hello, {username}!
+          {username}
         </Text>
 
         {/* User Points */}
