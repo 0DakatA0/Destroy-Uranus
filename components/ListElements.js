@@ -49,8 +49,10 @@ const styles = StyleSheet.create({
   score: {
     marginRight: 10,
     fontSize: 25,
+    color: "white"
   },
   title: {
     fontSize: 25,
+    color: "white"
   }
 });
