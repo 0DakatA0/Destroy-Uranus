@@ -7,8 +7,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import DailyFact from "./screens/DailyFact";
 import QuizScreen from "./screens/QuizScreen";
+import DailyFact from "./screens/DailyFact";
 
 const Stack = createNativeStackNavigator();
 

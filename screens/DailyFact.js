@@ -49,8 +49,7 @@ const DailyFact = () => {
             <Text>{name}</Text>
             <Text>{text}</Text>
             {/* ne raboti ama gram ---> <Image source={image}/>     -----*/}
-        </View>
-        
+        </View>   
     );
 }
 
