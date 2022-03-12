@@ -14,9 +14,7 @@ const HomeScreen = () => {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      // const data = await getDoc(doc(db, "users", user.uid));
-
+    const fetchUserData = () => {
       get(child(ref(rdb), `users/${user.uid}`)).then((snapshot) => {
         if (snapshot.exists()) {
           setUsername(snapshot.val().username);
