@@ -1,15 +1,26 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { auth, db } from "../config/firebase";
+import { db, auth  } from "../config/firebase";
 import { getDoc, doc } from "firebase/firestore";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const user = auth.currentUser;
-  // console.log(user.uid)
-  // const {username, score} = getDoc(doc(db, "users", user.uid)) 
+
+  const [username, setUsername] = useState("");
+  const [score, setScore] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = await getDoc(doc(db, "users", user.uid));
+      setUsername(await data.data().username);
+      setScore(await data.data().score);
+    };
+
+    fetchUserData();
+  });
 
   return (
     <ImageBackground
@@ -33,7 +44,7 @@ const HomeScreen = () => {
             fontSize: 30,
           }}
         >
-          Hello, John!
+          Hello, {username}!
         </Text>
 
         {/* User Points */}
@@ -45,7 +56,7 @@ const HomeScreen = () => {
             marginBottom: 30,
           }}
         >
-          You have 0 points!
+          You have {score} points!
         </Text>
 
         {/* Start a New Quiz button */}
@@ -55,7 +66,12 @@ const HomeScreen = () => {
         <Button onPress={() => {}} title="Leaderboard" />
 
         {/* Logout button? */}
-        <Button onPress={() => {navigation.navigate("Login")}} title="Logout" />
+        <Button
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+          title="Logout"
+        />
       </View>
     </ImageBackground>
   );

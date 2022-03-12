@@ -39,15 +39,15 @@ const LoginScreen = ({ navigation }) => {
             .then((userCredential) => {
               // Signed in
               const user = userCredential.user;
-              console.log(user.uid)
+              setEmail("");
+              setPassword("");
+              navigation.navigate("Home");
             })
             .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
               console.log(errorCode + ": " + errorMessage);
             });
-
-            navigation.navigate("Home");
         }}
       >
         <Text style={{ color: "white" }}>Log In</Text>

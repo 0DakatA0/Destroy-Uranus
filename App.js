@@ -6,7 +6,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import {onAuthStateChanged} from 'firebase/firestore'
 
 const Stack = createNativeStackNavigator();
 
@@ -16,13 +15,19 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName={user ? "Home" : "Login"}
         screenOptions={{
           headerShown: false,
         }}
-        component={user ? HomeScreen : LoginScreen}
+        component={HomeScreen}
       >
-        <Stack.Screen name="Home" component={HomeScreen}
+
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            user,
+          }}
         />
 
         <Stack.Screen name="Login" component={LoginScreen} />

@@ -69,6 +69,9 @@ const RegisterScreen = ({ navigation }) => {
             .then((userCredential) => {
               const user = userCredential.user;
               initUser(username, user.uid);
+              setEmail("");
+              setPassword("");  
+              navigation.navigate("Home");
               // ...
             })
             .catch((error) => {
@@ -77,8 +80,6 @@ const RegisterScreen = ({ navigation }) => {
               console.log(errorCode + ": " + errorMessage);
               // ..
             });
-
-          navigation.navigate("Home");
         }}
       >
         <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>
