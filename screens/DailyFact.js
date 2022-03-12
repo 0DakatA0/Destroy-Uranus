@@ -16,8 +16,8 @@ const DailyFact = () => {
 
     useEffect(() => {
         fetch(url)
-          .then((response) => response.json()) // get response, convert to json
-          .then((json) => {
+            .then((response) => response.json()) // get response, convert to json
+            .then((json) => {
                 setName(json.title);
                 setImage(String(json.url));
                 setText(json.explanation);
@@ -25,7 +25,6 @@ const DailyFact = () => {
           .catch((error) => alert(error)) // display errors
       }, []);
     
-
     return (
         <View style = {styles.container}>
             <Text style = {styles.bigText}> Did you know that ... ? </Text>

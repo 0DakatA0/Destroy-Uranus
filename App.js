@@ -15,6 +15,7 @@ const App = () => {
   const user = auth.currentUser;
 
   return (
+    
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={user ? "Home" : "Login"}
