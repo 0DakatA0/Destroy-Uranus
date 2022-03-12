@@ -10,7 +10,7 @@ const HomeScreen = () => {
   const user = auth.currentUser;
 
   const [username, setUsername] = useState("");
-  const [score, setScore] = useState("");
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {

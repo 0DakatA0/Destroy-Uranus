@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { auth, db } from "./config/firebase";
+import React, { useEffect } from "react";
+import { auth, db, rdb } from "./config/firebase";
+import { getDatabase, get, onValue, ref } from "firebase/database";
 import HomeScreen from "./screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import QuizScreen from "./screens/QuizScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,7 @@ const App = () => {
         <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    // <QuizScreen />
   );
 };
 
