@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
+import { StyleSheet, Text, View, Image, ImageBackground,TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { db, auth, rdb  } from "../config/firebase";
 import { ref, child, get } from "firebase/database";
 import Button from "../components/Button";
-
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -12,6 +11,25 @@ const HomeScreen = () => {
 
   const [username, setUsername] = useState("");
   const [score, setScore] = useState(0);
+
+  const userIcons = ["../assets/UserIcons/w1.png", "../assets/UserIcons/m2.png", "../assets/UserIcons/w3.png",
+                      "../assets/UserIcons/m4.png", "../assets/UserIcons/w5.png", "../assets/UserIcons/m6.png",
+                      "../assets/UserIcons/w7.png", "../assets/UserIcons/m1.png", "../assets/UserIcons/w2.png",
+                      "../assets/UserIcons/m3.png", "../assets/UserIcons/w4.png", "../assets/UserIcons/m5.png",
+                      "../assets/UserIcons/w6.png", "../assets/UserIcons/m7.png"]
+
+  const [icon, setIcon] = useState("");
+  var iconIterator = 0;
+
+  const changeIcon = () => {
+    if(iconIterator == userIcons.length){
+      iconIterator = -1;
+    }
+    iconIterator ++;
+    //setIcon(userIcons[iconIterator])
+    console.log("AFTER SET =  " +  iconIterator)
+    console.log(userIcons[iconIterator])
+  }
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -26,7 +44,6 @@ const HomeScreen = () => {
         console.error(error);
       });
     };
-
     fetchUserData();
   });
 
@@ -39,10 +56,9 @@ const HomeScreen = () => {
     >
       <View style={styles.container}>
         {/* Profile Picture */}
-        <Image
-          style={styles.userImg}
-          source={require("../assets/UserIcon.png")}
-        />
+        <TouchableOpacity onPress={() => changeIcon()}>
+            <Image style={styles.userImg} source={require("../assets/UserIcons/w1.png")} />
+        </TouchableOpacity>
 
         {/* Username */}
         <Text
