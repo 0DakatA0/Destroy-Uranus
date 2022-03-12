@@ -33,7 +33,7 @@ const HomeScreen = () => {
         {/* Profile Picture */}
         <Image
           style={styles.userImg}
-          source={require("../assets/favicon.png")}
+          source={require("../assets/UserIcon.png")}
         />
 
         {/* Username */}
@@ -63,7 +63,7 @@ const HomeScreen = () => {
         <Button onPress={() => {}} title="Start a new Quiz" />
 
         {/* Leaderboard button */}
-        <Button onPress={() => {}} title="Leaderboard" />
+        <Button onPress={() => { /*navigation.navigate("")*/}} title="Leaderboard" />
 
         {/* Logout button? */}
         <Button
