@@ -1,22 +1,36 @@
 import { StyleSheet, ImageBackground, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
-import { db } from "../config/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { db, rdb } from "../config/firebase";
+import { get, child, ref } from "firebase/database";
 import ListElements from "../components/ListElements";
 
 const LeaderBoard = () => {
   const [leaders, setLeaders] = useState([]);
-  const leadersColRef = collection(db, "users");
 
   useEffect(() => {
-    const fetchLeaders = async () => {
-      const data = await getDocs(leadersColRef);
-      setLeaders(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      setLeaders(leaders.sort((a, b) => a.score > b.score ? -1 : 1));
-      setLeaders(leaders.splice(0, 5));
+    const fetchLeaders = () => {
+      get(child(ref(rdb), "users/"))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setLeaders(Object.values(data));
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      // setLeaders(leaders.splice(0, 5));
     };
-  
-    fetchLeaders();
+
+    // console.log(fetchLeaders())
+    // setLeaders(
+    //   leaders.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+    // );
+
+    fetchLeaders()
   });
 
   return (

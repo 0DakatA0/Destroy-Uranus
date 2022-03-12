@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import { auth, db } from "../config/firebase";
+import { auth, db, rdb } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { doc, setDoc } from "@firebase/firestore";
+import { ref, set } from "firebase/database";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -22,9 +22,10 @@ const RegisterScreen = ({ navigation }) => {
       username: username,
       imageURL: "",
       score: 0,
+      id,
     };
 
-    await setDoc(doc(db, "users", id), user);
+    set(ref(rdb, "users/" + id), user);
   };
 
   return (

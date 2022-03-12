@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
-import { auth, db, rdb } from "./config/firebase";
-import { getDatabase, get, onValue, ref } from "firebase/database";
+import React from "react";
+import { auth, db } from "./config/firebase";
 import HomeScreen from "./screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import QuizScreen from "./screens/QuizScreen";
+import LeaderBoard from "./screens/LeaderBoard";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,35 +17,23 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={user ? "Home" : "Login"}
+        // initialRouteName="LeaderBoard"
         screenOptions={{
           headerShown: false,
         }}
         component={HomeScreen}
       >
-
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            user,
-          }}
-        />
+        <Stack.Screen name="Home" component={HomeScreen} />
 
         <Stack.Screen name="Login" component={LoginScreen} />
 
         <Stack.Screen name="Register" component={RegisterScreen} />
+
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+
       </Stack.Navigator>
     </NavigationContainer>
-    // <QuizScreen />
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
