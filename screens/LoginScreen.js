@@ -1,3 +1,7 @@
+/*
+  Here the users can log into their existing accounts.
+*/
+
 import {
   View,
   Text,

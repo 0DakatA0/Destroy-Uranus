@@ -1,3 +1,8 @@
+/*
+  This is the main menu in the app. There are buttons to navigate to the different 
+  menus.
+*/
+
 import {
   StyleSheet,
   Text,
@@ -65,6 +70,7 @@ const HomeScreen = () => {
             console.error(error);
           });
       };
+      
       fetchUserData();
     });
     return unsubscribe;

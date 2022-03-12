@@ -1,3 +1,7 @@
+/*
+  Here the users can make their accounts.
+*/
+
 import {
   View,
   Text,

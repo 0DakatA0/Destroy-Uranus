@@ -1,3 +1,7 @@
+/*
+  The Leader board shows the first five users with the best score
+*/
+
 import { StyleSheet, ImageBackground, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
 import { db, rdb } from "../config/firebase";
