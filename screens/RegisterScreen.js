@@ -7,11 +7,10 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
-import { auth, db, rdb } from "../config/firebase";
+import { auth, rdb } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { ref, set } from "firebase/database";
-// import UserIcons from "../components/UserIcons";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -19,8 +18,8 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  //initialize users in the database
   const initUser = async (username, id) => {
-
     const user = {
       username: username,
       imageURL: Math.floor(Math.random() * UserIcons.length),
@@ -68,6 +67,7 @@ const RegisterScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
+          // creating users
           if (password === confirmPassword) {
             createUserWithEmailAndPassword(auth, email, password)
               .then((userCredential) => {
@@ -78,7 +78,8 @@ const RegisterScreen = ({ navigation }) => {
                 navigation.navigate("Home");
                 // ...
               })
-              .catch((error) => {             
+              .catch((error) => {  
+                //errors           
                 Alert.alert(
                   "Error ocurred during register!",
                   "Your password must be 6 or more characters long.",

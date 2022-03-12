@@ -36,6 +36,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
+          //Signing in
           signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               // Signed in
@@ -45,6 +46,7 @@ const LoginScreen = ({ navigation }) => {
               navigation.navigate("Home");
             })
             .catch((error) => {
+              // error in logging in
               Alert.alert(
                 "Error ocurred during login!",
                 "Check if your password or email is correct.",

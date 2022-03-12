@@ -11,28 +11,32 @@ const LeaderBoard = () => {
   const navigation = useNavigation();
   const reference = ref(rdb);
 
-  const fetchLeaders = () => {
-    get(child(reference, "users/"))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const sort = Object.values(data).sort((a, b) =>
-            a.score > b.score ? -1 : 1
-          );
-          const res = sort.splice(0, 5);
-          setLeaders(res);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  useEffect(() => {
+    // fetching the first five users with the best score from the database
 
-  fetchLeaders();
+    const fetchLeaders = () => {
+      get(child(reference, "users/"))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            // fetch users
+            const data = snapshot.val();
+            // sort users
+            const sort = Object.values(data).sort((a, b) =>
+              a.score > b.score ? -1 : 1
+            );
+            const res = sort.splice(0, 5);
+            setLeaders(res);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
 
-  useEffect(() => {});
+    fetchLeaders();
+  });
 
   return (
     <ImageBackground
