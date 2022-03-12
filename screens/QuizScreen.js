@@ -29,7 +29,6 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import Button from "../components/Button";
-import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
