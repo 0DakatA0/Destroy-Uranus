@@ -31,6 +31,7 @@
     "react-firebase-hooks": "^5.0.3",
     "react-google-button": "^0.7.2",
     "react-native": "0.64.3",
+    "react-native-countdown-component": "^2.7.1",
     "react-native-dotenv": "^3.3.1",
     "react-native-login-google": "^2.0.3",
     "react-native-svg": "12.1.1",

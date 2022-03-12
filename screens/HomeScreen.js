@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, Image, ImageBackground,TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { db, auth, rdb  } from "../config/firebase";
+import { db, auth, rdb } from "../config/firebase";
 import { ref, child, get } from "firebase/database";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const user = auth.currentUser
+  const user = auth.currentUser;
 
   const [username, setUsername] = useState("");
   const [score, setScore] = useState(0);
@@ -32,6 +32,7 @@ const HomeScreen = () => {
   }
 
   useEffect(() => {
+<<<<<<< HEAD
     const fetchUserData = () => {
       get(child(ref(rdb), `users/${user.uid}`)).then((snapshot) => {
         if (snapshot.exists()) {
@@ -46,6 +47,44 @@ const HomeScreen = () => {
     };
     fetchUserData();
   });
+=======
+    const unsubscribe = navigation.addListener("focus", () => {
+      const fetchUserData = () => {
+        get(child(ref(rdb), `users/${user.uid}`))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              setUsername(snapshot.val().username);
+              setScore(snapshot.val().score);
+              console.log(score);
+            } else {
+              console.log("No data available");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+      fetchUserData();
+    });
+    return unsubscribe;
+    // const fetchUserData = () => {
+    //   get(child(ref(rdb), `users/${user.uid}`))
+    //     .then((snapshot) => {
+    //       if (snapshot.exists()) {
+    //         setUsername(snapshot.val().username);
+    //         setScore(snapshot.val().score);
+    //         console.log(score);
+    //       } else {
+    //         console.log("No data available");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // };
+    // fetchUserData();
+  }, [navigation]);
+>>>>>>> c596b1cb0098b20970eda682cf90f3e6e6da8f81
 
   return (
     <ImageBackground
@@ -84,13 +123,28 @@ const HomeScreen = () => {
         </Text>
 
         {/* Start a New Quiz button */}
-        <Button onPress={() => {navigation.navigate("Quiz")}} title="Start a new Quiz" />
+        <Button
+          onPress={() => {
+            navigation.navigate("Quiz");
+          }}
+          title="Start a new Quiz"
+        />
 
         {/* Fact Of The Day button */}
-        <Button onPress={() => {navigation.navigate("Fact of the Day")}} title="Fact of the Day" />
+        <Button
+          onPress={() => {
+            navigation.navigate("Fact of the Day");
+          }}
+          title="Fact of the Day"
+        />
 
         {/* Leaderboard button */}
-        <Button onPress={() => {navigation.navigate("LeaderBoard")}} title="Leaderboard" />
+        <Button
+          onPress={() => {
+            navigation.navigate("LeaderBoard");
+          }}
+          title="Leaderboard"
+        />
 
         {/* Logout button */}
         <Button

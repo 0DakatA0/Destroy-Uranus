@@ -54,7 +54,7 @@ const LeaderBoard = () => {
       <Button
         onPress={() => navigation.navigate("Home")}
         title="Go Back!"
-        style={styles.btn}
+        // style={styles.btn}
       />
     </ImageBackground>
   );
