@@ -16,8 +16,6 @@ const App = () => {
   const user = auth.currentUser;
 
   return (
-    // <DailyFact/>
-    
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={user ? "Home" : "Login"}
@@ -47,7 +45,7 @@ const App = () => {
 export default App;
 
 const styles = StyleSheet.create({
-  container: {
+   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
