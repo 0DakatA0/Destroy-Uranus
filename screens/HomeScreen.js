@@ -1,22 +1,31 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { db, auth  } from "../config/firebase";
-import { getDoc, doc } from "firebase/firestore";
+import { db, auth, rdb  } from "../config/firebase";
+import { ref, child, get } from "firebase/database";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const user = auth.currentUser;
+  const user = auth.currentUser
 
   const [username, setUsername] = useState("");
   const [score, setScore] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const data = await getDoc(doc(db, "users", user.uid));
-      setUsername(await data.data().username);
-      setScore(await data.data().score);
+      // const data = await getDoc(doc(db, "users", user.uid));
+
+      get(child(ref(rdb), `users/${user.uid}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          setUsername(snapshot.val().username);
+          setScore(snapshot.val().score);
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
     };
 
     fetchUserData();

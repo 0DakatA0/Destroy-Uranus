@@ -23,6 +23,7 @@ import { rdb } from "../config/firebase";
 import { getDatabase, get, onValue, ref } from "firebase/database";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 // const data = [
 //   {
@@ -92,7 +93,7 @@ const QuizScreen = () => {
       setScore(score + 1);
     }
     // Explanation to the Answer
-    
+
     // Show Next Button
     setShowNextButton(true);
   };
@@ -177,12 +178,15 @@ const QuizScreen = () => {
           style={{
             height: 200,
             width: 200,
-            borderRadius: 75,
+            borderRadius: 25,
             marginTop: 10,
             alignSelf: 'center',
           }}
           // source={require(quizData[currentQuestionIndex]?.img)}
-          source={require("../Design/Galaxy.jpg")}
+          // source={require("../Design/Galaxy.jpg")}
+          // source={require(quizData[currentQuestionIndex]?.img)}
+
+          source={{uri: quizData[currentQuestionIndex]?.img}}
         />
       </View>
     );
@@ -234,13 +238,13 @@ const QuizScreen = () => {
                   alignItems: "center",
                 }}
               >
-                {/* <MaterialCommunityIcons
+                <MaterialCommunityIcons
                   name="check"
                   style={{
                     color: colors.white,
                     fontSize: 20,
                   }}
-                /> */}
+                />
               </View>
             ) : option == currentOptionSelected ? (
               <View
@@ -253,13 +257,13 @@ const QuizScreen = () => {
                   alignItems: "center",
                 }}
               >
-                {/* <MaterialCommunityIcons
+                <MaterialCommunityIcons
                   name="close"
                   style={{
                     color: colors.white,
                     fontSize: 20,
                   }}
-                /> */}
+                />
               </View>
             ) : null}
           </TouchableOpacity>
