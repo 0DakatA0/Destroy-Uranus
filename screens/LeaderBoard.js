@@ -2,7 +2,13 @@
   The Leader board shows the first five users with the best score
 */
 
-import { StyleSheet, ImageBackground, FlatList } from "react-native";
+import {
+  StyleSheet,
+  ImageBackground,
+  FlatList,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { db, rdb } from "../config/firebase";
 import { get, child, ref } from "firebase/database";
@@ -59,11 +65,12 @@ const LeaderBoard = () => {
         )}
         keyExtractor={(item) => item.id}
       />
-      <Button
-        onPress={() => navigation.navigate("Home")}
-        title="Go Back!"
+      <TouchableOpacity
         style={styles.btn}
-      />
+        onPress={() => navigation.navigate("Home")}
+      >
+        <Text style={styles.btnText}>Return to Home</Text>
+      </TouchableOpacity>
     </ImageBackground>
   );
 };
@@ -79,5 +86,18 @@ const styles = StyleSheet.create({
   list: {
     marginTop: "30%",
     width: "100%",
-  }
+  },
+  btn: {
+    backgroundColor: "#FF9933",
+    width: "40%",
+    padding: 15,
+    borderRadius: 20,
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  btnText: {
+    fontWeight: "700",
+    fontSize: 17,
+    color: "white",
+  },
 });

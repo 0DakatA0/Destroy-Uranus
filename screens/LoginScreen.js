@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Button from "../components/Button";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -37,8 +38,7 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={(text) => setPassword(text)}
         secureTextEntry={true}
       />
-      <TouchableOpacity
-        style={styles.btn}
+      <Button
         onPress={() => {
           //Signing in
           signInWithEmailAndPassword(auth, email, password)
@@ -60,9 +60,8 @@ const LoginScreen = ({ navigation }) => {
               setPassword("")
             });
         }}
-      >
-        <Text style={{ color: "white" }}>Log In</Text>
-      </TouchableOpacity>
+        title="Log in"
+      />
       <Text style={{color: "white"}}>Don't have an account?</Text>
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={{color: "white"}}>Sign up here.</Text>
@@ -94,16 +93,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#f5a742",
     color: "white",
-  },
-  btn: {
-    width: "40%",
-    height: 50,
-    backgroundColor: "#f5a742",
-    borderRadius: 25,
-    margin: 12,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 

@@ -7,7 +7,6 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   ImageBackground,
   Alert,
 } from "react-native";
@@ -15,6 +14,7 @@ import { auth, rdb } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { ref, set } from "firebase/database";
+import Button from "../components/Button";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -68,8 +68,7 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={(text) => setConfirmPassword(text)}
         secureTextEntry={true}
       />
-      <TouchableOpacity
-        style={styles.btn}
+      <Button
         onPress={() => {
           // creating users
           if (password === confirmPassword) {
@@ -82,8 +81,8 @@ const RegisterScreen = ({ navigation }) => {
                 navigation.navigate("Home");
                 // ...
               })
-              .catch((error) => {  
-                //errors           
+              .catch((error) => {
+                //errors
                 Alert.alert(
                   "Error ocurred during register!",
                   "Your password must be 6 or more characters long.",
@@ -96,9 +95,9 @@ const RegisterScreen = ({ navigation }) => {
             setConfirmPassword("");
           }
         }}
-      >
-        <Text style={{ color: "white", fontSize: 20 }}>Submit</Text>
-      </TouchableOpacity>
+
+        title="Submit"
+      />
     </ImageBackground>
   );
 };
@@ -126,16 +125,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#f5a742",
     color: "white",
-  },
-  btn: {
-    width: "40%",
-    height: 50,
-    backgroundColor: "#f5a742",
-    borderRadius: 25,
-    margin: 12,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
