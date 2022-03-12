@@ -19,7 +19,6 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={user ? "Home" : "Login"}
-        // initialRouteName="LeaderBoard"
         screenOptions={{
           headerShown: false,
         }}

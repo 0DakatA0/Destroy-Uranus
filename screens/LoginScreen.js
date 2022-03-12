@@ -4,7 +4,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  Alert
 } from "react-native";
 import { useState } from "react";
 import { auth } from "../config/firebase";
@@ -44,9 +45,13 @@ const LoginScreen = ({ navigation }) => {
               navigation.navigate("Home");
             })
             .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log(errorCode + ": " + errorMessage);
+              Alert.alert(
+                "Error ocurred during login!",
+                "Check if your password or email is correct.",
+                [{ text: "OK" }]
+              );
+
+              setPassword("")
             });
         }}
       >

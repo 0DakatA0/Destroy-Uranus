@@ -7,31 +7,29 @@ import ListElements from "../components/ListElements";
 const LeaderBoard = () => {
   const [leaders, setLeaders] = useState([]);
 
-  useEffect(() => {
-    const fetchLeaders = () => {
-      get(child(ref(rdb), "users/"))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            setLeaders(Object.values(data));
-          } else {
-            console.log("No data available");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  const reference = ref(rdb);
 
-      // setLeaders(leaders.splice(0, 5));
-    };
+  const fetchLeaders = () => {
+    get(child(reference, "users/"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const sort = Object.values(data).sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+          const res = sort.splice(0, 5);
+          setLeaders(res);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
-    // console.log(fetchLeaders())
-    // setLeaders(
-    //   leaders.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
-    // );
+  };
 
-    fetchLeaders()
-  });
+  fetchLeaders();
+
+  useEffect(() => {});
 
   return (
     <ImageBackground
