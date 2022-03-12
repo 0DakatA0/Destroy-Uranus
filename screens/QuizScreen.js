@@ -28,9 +28,9 @@ import {
 } from "firebase/database";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -97,8 +97,8 @@ const QuizScreen = () => {
         score,
       });
       setCorrectAnswers(correctAnswers + 1);
-      console.log("Score: " + score);
-      console.log("Answers: " + correctAnswers);
+      // console.log("Score: " + score);
+      // console.log("Answers: " + correctAnswers);
     }
 
     // Set Explanation to Show
