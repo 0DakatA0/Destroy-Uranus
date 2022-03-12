@@ -10,7 +10,6 @@ import { auth, db } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { doc, setDoc } from "@firebase/firestore";
-import { useRef } from "react/cjs/react.development";
 
 const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -70,7 +69,7 @@ const RegisterScreen = ({ navigation }) => {
               const user = userCredential.user;
               initUser(username, user.uid);
               setEmail("");
-              setPassword("");  
+              setPassword("");
               navigation.navigate("Home");
               // ...
             })
