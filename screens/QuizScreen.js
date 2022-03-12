@@ -24,6 +24,8 @@ import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../components/Button";
+import CountDown from "react-native-countdown-component";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -36,12 +38,13 @@ const QuizScreen = () => {
   const [showNextButton, setShowNextButton] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
   const [quizData, setQuizData] = useState([]);
 
   const user = auth.currentUser;
-
   // const db = getDatabase();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const quizRef = ref(rdb, "quiz");
@@ -75,10 +78,13 @@ const QuizScreen = () => {
     setIsOptionDisabled(true);
     if (selectedOption == correctOption) {
       // Set Score
-      setScore(score + 1);
+      setScore(score + quizData[currentQuestionIndex]?.points);
       update(ref(rdb, "users/" + user.uid), {
         score,
       });
+      setCorrectAnswers(correctAnswers + 1);
+      console.log("Score: " + score)
+      console.log("Answers: " + correctAnswers)
     }
 
     // Set Explanation to Show
@@ -111,7 +117,8 @@ const QuizScreen = () => {
     setShowScoreModal(false);
 
     setCurrentQuestionIndex(0);
-    setScore(0);
+    // setScore(0);
+    setCorrectAnswers(0);
 
     setCurrentOptionSelected(null);
     setCorrectOption(null);
@@ -435,13 +442,12 @@ const QuizScreen = () => {
               }}
             >
               <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-                {score > quizData.length / 2 ? "Congratulations!" : "Oops!"}{" "}
-                {/* change to point gain summary */}
+                Summary
               </Text>
 
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "center",
                   marginVertical: 20,
@@ -449,26 +455,33 @@ const QuizScreen = () => {
               >
                 <Text
                   style={{
-                    fontSize: 30,
-                    color:
-                      score > quizData.length / 2
-                        ? colors.success
-                        : colors.error,
+                    fontSize: 20,
+                    color: colors.success,
+
                   }}
                 >
-                  {score}
+                  {correctAnswers}/{quizData.length} correct answers!
                 </Text>
-                <Text
+                {/* <Text
                   style={{
                     fontSize: 20,
                     color: colors.black,
                   }}
                 >
                   / {quizData.length}
+                </Text> */}
+                <Text style={{
+                  fontSize: 20,
+                  color: colors.secondary,
+                }}>
+                  You now have a total of {score} points!
                 </Text>
               </View>
+
               {/* Retry Quiz button */}
-              <TouchableOpacity
+              <Button title="Home" onPress={() => navigation.navigate("Home")} /> 
+
+              {/* <TouchableOpacity
                 onPress={restartQuiz}
                 style={{
                   backgroundColor: colors.accent,
@@ -486,7 +499,7 @@ const QuizScreen = () => {
                 >
                   Retry Quiz
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </Modal>

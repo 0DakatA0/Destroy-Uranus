@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Image, ImageBackground } from "react-native";
 import { useState, useEffect } from "react";
+import Button from "../components/Button";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 const url =
   "https://api.nasa.gov/planetary/apod?api_key=qzXavvTLhxwcEuBXc8uBygbnQEdrdhdBsfNKuGoH";
 
 const DailyFact = () => {
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
@@ -27,6 +29,7 @@ const DailyFact = () => {
         <Image style={styles.image} source={{ uri: image }} />
         <Text style={styles.bigText}> {name}</Text>
         <Text style={styles.justText}> {text}</Text>
+        <Button title="Go Back" onPress={() => navigation.navigate("Home")} />
       </View>
   );
 };
