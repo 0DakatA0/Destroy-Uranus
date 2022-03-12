@@ -63,7 +63,7 @@ const HomeScreen = () => {
         <Button onPress={() => {}} title="Start a new Quiz" />
 
         {/* Leaderboard button */}
-        <Button onPress={() => { /*navigation.navigate("")*/}} title="Leaderboard" />
+        <Button onPress={() => {navigation.navigate("LeaderBoard")}} title="Leaderboard" />
 
         {/* Logout button? */}
         <Button
