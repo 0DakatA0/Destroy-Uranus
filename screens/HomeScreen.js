@@ -70,7 +70,7 @@ const HomeScreen = () => {
             console.error(error);
           });
       };
-      
+
       fetchUserData();
     });
     return unsubscribe;
@@ -100,6 +100,9 @@ const HomeScreen = () => {
       }}
     >
       <View style={styles.container}>
+        {/* Title */}
+        <Text style={styles.title}>Quizzi</Text>
+
         {/* Profile Picture */}
         <TouchableOpacity onPress={changeIcon}>
           <Image style={styles.userImg} source={userIcons[icon]} />
@@ -178,10 +181,9 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     marginBottom: 10,
   },
-  //   userName: {
-  //     color: "white",
-  //     fontWeight: "700",
-  //     fontSize: 30,
-  //     marginBottom: 30,
-  //   },
+  title: {
+    fontSize: 40,
+    fontWeight: "700",
+    color: "white",
+  },
 });
