@@ -67,7 +67,7 @@ const LeaderBoard = () => {
       />
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.goBack()}
       >
         <Text style={styles.btnText}>Return to Home</Text>
       </TouchableOpacity>
