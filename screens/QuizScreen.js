@@ -1,3 +1,8 @@
+/*
+  This is the Quiz Screen file. Here you can find all the functionality and scripts
+  needed for the Quiz to make.
+*/
+
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -9,6 +14,7 @@ import {
   Animated,
   ImageBackground,
   ScrollView,
+  Alert,
 } from "react-native";
 import { rdb, auth } from "../config/firebase";
 import {
@@ -24,12 +30,13 @@ import { StatusBar } from "expo-status-bar";
 import { Dimensions } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Button from "../components/Button";
-// import CountDown from "react-native-countdown-component";
+import CountDown from "react-native-countdown-component";
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
 const QuizScreen = () => {
+  // Initializing States
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
@@ -39,6 +46,7 @@ const QuizScreen = () => {
   const [showScoreModal, setShowScoreModal] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [useHints, setUseHints] = useState(false);
 
   const [quizData, setQuizData] = useState([]);
 
@@ -46,6 +54,7 @@ const QuizScreen = () => {
   // const db = getDatabase();
   const navigation = useNavigation();
 
+  // Get Quiz and User data from DB
   useEffect(() => {
     const quizRef = ref(rdb, "quiz");
     onValue(quizRef, (snapshot) => {
@@ -71,20 +80,26 @@ const QuizScreen = () => {
     fetchUserData();
   }, []);
 
+  // Check if Option is Valid
   const validateAnswer = (selectedOption) => {
     let correctOption = quizData[currentQuestionIndex]?.answer;
     setCurrentOptionSelected(selectedOption);
     setCorrectOption(correctOption);
     setIsOptionDisabled(true);
     if (selectedOption == correctOption) {
-      // Set Score
-      setScore(score + quizData[currentQuestionIndex]?.points);
+      // Check if Used Hints
+      if (useHints) {
+        // Set Score
+        setScore(score + quizData[currentQuestionIndex]?.points - 1);
+      } else {
+        setScore(score + quizData[currentQuestionIndex]?.points);
+      }
       update(ref(rdb, "users/" + user.uid), {
         score,
       });
       setCorrectAnswers(correctAnswers + 1);
-      console.log("Score: " + score)
-      console.log("Answers: " + correctAnswers)
+      console.log("Score: " + score);
+      console.log("Answers: " + correctAnswers);
     }
 
     // Set Explanation to Show
@@ -94,6 +109,7 @@ const QuizScreen = () => {
     setShowNextButton(true);
   };
 
+  // Handle What Happens Next
   const handleNext = () => {
     if (currentQuestionIndex == quizData.length - 1) {
       // Last Question
@@ -107,35 +123,18 @@ const QuizScreen = () => {
       setShowNextButton(false);
     }
     Animated.timing(progress, {
-      toValue: currentQuestionIndex + 1,
+      toValue: currentQuestionIndex + 2,
       duration: 1000,
       useNativeDriver: false,
     }).start();
   };
 
-  const restartQuiz = () => {
-    setShowScoreModal(false);
-
-    setCurrentQuestionIndex(0);
-    // setScore(0);
-    setCorrectAnswers(0);
-
-    setCurrentOptionSelected(null);
-    setCorrectOption(null);
-    setIsOptionDisabled(false);
-    setShowNextButton(false);
-    Animated.timing(progress, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: false,
-    }).start();
-  };
-
+  // Render the Question
   const renderQuestion = () => {
     return (
       <View
         style={{
-          marginVertical: 40,
+          marginVertical: 20,
         }}
       >
         {/* Question Counter */}
@@ -158,6 +157,22 @@ const QuizScreen = () => {
           <Text style={{ color: colors.white, fontSize: 18, opacity: 0.6 }}>
             / {quizData.length}
           </Text>
+          <Text
+            style={{
+              color: colors.success,
+              fontSize: 20,
+            }}
+          >
+            {"  "}({quizData[currentQuestionIndex]?.points} points)
+          </Text>
+          <Text
+            style={{
+              color: colors.success,
+              fontSize: 20,
+            }}
+          >
+            {"             "}Current score: {score}
+          </Text>
         </View>
 
         {/* Question */}
@@ -170,22 +185,54 @@ const QuizScreen = () => {
             marginBottom: 10,
           }}
         >
-          {quizData[currentQuestionIndex]?.question}
+          {quizData[currentQuestionIndex]?.question}{" "}
         </Text>
         <Image
           style={{
             height: 200,
             width: 200,
             borderRadius: 25,
-            marginTop: 10,
+            //margin: 10,
+            marginBottom: 10,
             alignSelf: "center",
           }}
           source={{ uri: quizData[currentQuestionIndex]?.img }}
         />
+
+        {/* Hint Functionality */}
+        <TouchableOpacity
+          onPress={() => {
+            setUseHints(true);
+            Alert.alert("Hint", quizData[currentQuestionIndex]?.hint, [
+              { text: "OK" },
+            ]);
+          }}
+        >
+          <Text
+            style={{
+              color: "#bbb6af",
+              fontSize: 20,
+              alignSelf: "center",
+              marginTop: 10,
+              marginBottom: -13,
+            }}
+          >
+            Use a hint{" "}
+            <Text
+              style={{
+                color: "#ff9933",
+                fontSize: 20,
+              }}
+            >
+              (-1 point)
+            </Text>
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   };
 
+  // Render the Question Options
   const renderOptions = () => {
     return (
       <View>
@@ -266,11 +313,18 @@ const QuizScreen = () => {
       </View>
     );
   };
+
+  // Render the Next Question Button
   const renderNextButton = () => {
     if (showNextButton) {
       return (
         <TouchableOpacity
-          onPress={handleNext}
+          onPress={() => {
+            handleNext();
+            update(ref(rdb, "users/" + user.uid), {
+              score,
+            });
+          }}
           style={{
             marginTop: 20,
             width: "100%",
@@ -287,7 +341,7 @@ const QuizScreen = () => {
               fontWeight: "700",
             }}
           >
-            Next Question
+            Next
           </Text>
         </TouchableOpacity>
       );
@@ -441,9 +495,7 @@ const QuizScreen = () => {
                 alignItems: "center",
               }}
             >
-              <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-                Summary
-              </Text>
+              <Text style={{ fontSize: 30, fontWeight: "bold" }}>Summary</Text>
 
               <View
                 style={{
@@ -457,49 +509,30 @@ const QuizScreen = () => {
                   style={{
                     fontSize: 20,
                     color: colors.success,
-
                   }}
                 >
                   {correctAnswers}/{quizData.length} correct answers!
                 </Text>
-                {/* <Text
+                <Text
                   style={{
                     fontSize: 20,
-                    color: colors.black,
+                    color: colors.secondary,
                   }}
                 >
-                  / {quizData.length}
-                </Text> */}
-                <Text style={{
-                  fontSize: 20,
-                  color: colors.secondary,
-                }}>
                   You now have a total of {score} points!
                 </Text>
               </View>
 
-              {/* Retry Quiz button */}
-              <Button title="Home" onPress={() => navigation.navigate("Home")} /> 
-
-              {/* <TouchableOpacity
-                onPress={restartQuiz}
-                style={{
-                  backgroundColor: colors.accent,
-                  padding: 20,
-                  width: "100%",
-                  borderRadius: 20,
+              {/* Go Back button */}
+              <Button
+                title="Home"
+                onPress={() => {
+                  update(ref(rdb, "users/" + user.uid), {
+                    score,
+                  });
+                  navigation.navigate("Home");
                 }}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: colors.white,
-                    fontSize: 20,
-                  }}
-                >
-                  Retry Quiz
-                </Text>
-              </TouchableOpacity> */}
+              />
             </View>
           </View>
         </Modal>
@@ -511,7 +544,7 @@ const QuizScreen = () => {
 export default QuizScreen;
 
 const colors = {
-  primary: "#252c4a", // we dont need that
+  primary: "#744EBF",
   secondary: "#ff9a1e",
   accent: "#FF9933",
 
