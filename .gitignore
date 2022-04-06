@@ -16,6 +16,7 @@ web-build/
 
 # Ignore .env files
 env.json
+.env
 
 
 # @generated expo-cli sync-e7dcf75f4e856f7b6f3239b3f3a7dd614ee755a8
