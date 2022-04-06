@@ -16,4 +16,5 @@ web-build/
 
 # Ignore .env files
 env.json
+.env
 
