@@ -9,6 +9,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import QuizScreen from "./screens/QuizScreen";
 import DailyFact from "./screens/DailyFact";
 import LeaderBoard from "./screens/LeaderBoard";
+import SolarSystemScreen from "./screens/SolarSystemScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,28 +18,30 @@ const App = () => {
 
   return (
     
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={user ? "Home" : "Login"}
-        screenOptions={{
-          headerShown: false,
-        }}
-        component={HomeScreen}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
+    <SolarSystemScreen />
+    
+    // <NavigationContainer>
+    //   <Stack.Navigator
+    //     initialRouteName={user ? "Home" : "Login"}
+    //     screenOptions={{
+    //       headerShown: false,
+    //     }}
+    //     component={HomeScreen}
+    //   >
+    //     <Stack.Screen name="Home" component={HomeScreen} />
 
-        <Stack.Screen name="Login" component={LoginScreen} />
+    //     <Stack.Screen name="Login" component={LoginScreen} />
 
-        <Stack.Screen name="Register" component={RegisterScreen} />
+    //     <Stack.Screen name="Register" component={RegisterScreen} />
 
-        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+    //     <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
 
-        <Stack.Screen name="Quiz" component={QuizScreen} />
+    //     <Stack.Screen name="Quiz" component={QuizScreen} />
 
-        <Stack.Screen name="Fact of the Day" component={DailyFact} />
+    //     <Stack.Screen name="Fact of the Day" component={DailyFact} />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 };
 
