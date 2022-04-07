@@ -17,18 +17,18 @@ import PlanetModal from "../components/PlanetModal";
 
 import MercuryData, {
   requiredPointsToAccessMercury,
-} from "../data/MercuryData";
-import VenusData, { requiredPointsToAccessVenus } from "../data/VenusData";
-import EarthData, { requiredPointsToAccessEarth } from "../data/EarthData";
-import MarsData, { requiredPointsToAccessMars } from "../data/MarsData";
-import JupiterData, {
+} from "../data/MercuryData.json";
+import {VenusData,  requiredPointsToAccessVenus } from "../data/VenusData.json";
+import {EarthData,  requiredPointsToAccessEarth } from "../data/EarthData";
+import {MarsData,  requiredPointsToAccessMars } from "../data/MarsData.json";
+import {JupiterData, 
   requiredPointsToAccessJupiter,
-} from "../data/JupiterData";
-import SaturnData, { requiredPointsToAccessSaturn } from "../data/SaturnData";
-import UranusData, { requiredPointsToAccessUranus } from "../data/UranusData";
-import NeptuneData, {
+} from "../data/JupiterData.json";
+import {SaturnData,  requiredPointsToAccessSaturn } from "../data/SaturnData.json";
+import {UranusData,  requiredPointsToAccessUranus } from "../data/UranusData.json";
+import {NeptuneData, 
   requiredPointsToAccessNeptune,
-} from "../data/NeptuneData";
+} from "../data/NeptuneData.json";
 
 const SolarSystemScreen = ({ navigation: { navigate } }) => {
   // const navigation = useNavigation();

@@ -1,0 +1,61 @@
+{
+  "Earth Data": [
+    {
+      "question": "The days are getting:",
+      "options": [
+        "shorter",
+        "longer",
+        "don't change",
+        "depends on the month"
+      ],
+      "correct_option": "longer",
+      "hint": "4.6 billion years ago the duration was 6 hours.",
+      "points": 10,
+      "explanation": "The length of Earth's day is increasing. When Earth was formed 4.6 billion years ago, its day would have been roughly six hours long. By 620 million years ago, this had increased to 21.9 hours. Today, the average day is 24 hours long, but is increasing by about 1.7 milliseconds every century. The reason? The moon is slowing down Earth's rotation through the tides that it helps create. Earth's spin causes the position of its tidal ocean bulges to be pulled slightly ahead of the moon-Earth axis, which creates a twisting force that slows down Earth's rotation. As a result, our day is getting longer — but not long enough to make a difference to your busy schedule",
+      "img": "https://climate.nasa.gov/internal_resources/889"
+    },
+    {
+      "question": "How Many Satellites Are in Orbit Around Earth?",
+      "options": [
+        "4,550",
+        "4,000",
+        "55",
+        "10"
+      ],
+      "correct_option": "4,550",
+      "hint": "There are a lot of them",
+      "points": 5,
+      "explanation": "There are thousands of satellites in the sky above us at this moment, orbiting Earth. Satellites have many uses for the government, military, and even civilians. They provide us the ability to have things like Internet access, television, GPS, and much more. They also have scientific purposes such as Earth and space observation and provide the means for high-level technology development. More than half of the 4,550 satellites orbiting Earth are used for communications purposes, and that number will continue to rise as tech billionaires look to bring high-speed Internet access to every corner of Earth. ",
+      "img": "https://www.aljazeera.com/wp-content/uploads/2018/02/83b4c3c8553140edbf2a2c1ac4ccc0bf_18.jpeg?fit=1000%2C562"
+    },
+    {
+      "question": "Which material is 32.1% If you could separate the Earth out into piles of material",
+      "options": [
+        "iron",
+        "oxygen",
+        "silicon",
+        "magnesium"
+      ],
+      "correct_option": "iron",
+      "hint": "It's more common than the oxygen",
+      "points": 10,
+      "explanation": "If you could separate the Earth out into piles of material, you’d get 32.1 % iron, 30.1% oxygen, 15.1% silicon, and 13.9% magnesium. Of course, most of this iron is actually located at the core of the Earth. If you could actually get down and sample the core, it would be 88% iron. And if you sampled the Earth’s crust, you’d find that 47% of it is oxygen.",
+      "img": "https://www.universetoday.com/wp-content/uploads/2008/05/Earths-layers.jpg"
+    },
+    {
+      "question": "How many percents of the Earth’s Surface is Covered in Water:",
+      "options": [
+        "45%",
+        "60%",
+        "70%",
+        "90%"
+      ],
+      "correct_option": "70%",
+      "hint": "The land is twice as small as the water",
+      "points": 5,
+      "explanation": "When astronauts first went into the space, they looked back at the Earth with human eyes for the first time. Based on their observations, the Earth acquired the nickname the “Blue Planet:. And it’s no surprise, seeing as how 70% of our planet is covered with oceans. The remaining 30% is the solid crust that is located above sea level, hence why it is called the “continental crust”.",
+      "img": "https://media.npr.org/assets/img/2011/06/22/earthoceans-e2274ff3c78cca21823f076c9568a985cf923dad-s1100-c50.jpg"
+    }
+  ],
+  "requiredPointsToAccessEarth": 50
+}
