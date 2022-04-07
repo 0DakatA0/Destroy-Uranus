@@ -1,0 +1,58 @@
+export default UranusData = [
+  {
+    question: "Uranus is the:",
+    options: [
+      "coldest.",
+      "hottest.",
+      "planet with the most normal tempreture.",
+    ],
+    correct_option: "coldest.",
+    hint: "Uranus is far from the sun.",
+    points: 5,
+    explanation:
+      "Uranus is the seventh planet from the Sun, orbiting at a distance of 2.88 billion km. But it’s still much closer than Neptune, which averages a distance of 4.5 billion km from the Sun. However, this does not prevent Uranus from being colder than Neptune. Whereas the former experiences an average temperature of 72 K (-201 °C/-330 °F), reaching a low of 55 K (-218 °C/-360 °F).",
+    img: "https://www.universetoday.com/wp-content/uploads/2014/09/640px-Uranus2-e1440522974666.jpg",
+  },
+  {
+    question: "The axial tilt of Uranus is ____ degrees.",
+    options: ["24", "23.5", "99", "50"],
+    correct_option: "99",
+    hint: "The planet is rotating on its side.",
+    points: 10,
+    explanation:
+      "All of the planets in the Solar System rotate on their axis, with a tilt that’s similar to the Sun. In many cases, planet’s have an axial tilt, where one of their poles will be inclined slightly towards the Sun. For example, the axis of the Earth’s rotation is tilted 23.5-degrees away from the Sun’s plane. Mars is similar, with a tilt of about 24 degrees, which results in seasonal changes on both planets.But the axial tilt of Uranus is a staggering 99 degrees! In other words, the planet is rotating on its side. All the planets look a bit like spinning top as they go around the Sun, but Uranus looks more like a ball rolling in a circular pattern. ",
+    img: "https://www.universetoday.com/wp-content/uploads/2010/06/Hubbles-Uranus.jpg",
+  },
+  {
+    question: "Uranus was the _______ discovered planet in modern days.",
+    options: ["first", "second", "it was discovered way before"],
+    correct_option: "first",
+    hint: "It was discovered immediately after the invention of the telescope.",
+    points: 10,
+    explanation:
+      "Most of the planets are visible to the unaided eye, and were known in ancient times. Uranus was the first planet discovered after the invention of the telescope. It was first recorded in 1690 by John Flamsteed, who thought it was a star in the constellation Tauri. But it wasn’t until Sir William Herschel made his observations in 1781 that astronomers finally realized it was a planet.",
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/16/John_Flamsteed_1702.jpg",
+  },
+  {
+    question: "Uranus has been visited ____ times.",
+    options: ["0", "1", "2", "3"],
+    correct_option: "1",
+    hint: "No other spacecraft have ever been sent towards Uranus, and there are currently no plans to send any more. ",
+    points: 5,
+    explanation:
+      "Only one spacecraft in the history of spaceflight has ever made a close approach to Uranus. NASA’s Voyager 2 conducted its closest approach to  Uranus on January 24th, 1986, passing within 81,000 km of the cloud tops of Uranus. It took thousands of photographs of the gas/ice giant and its moons before speeding off towards its next target: Neptune. No other spacecraft have ever been sent towards Uranus, and there are currently no plans to send any more. The possibility of sending the Cassini spacecraft from Saturn to Uranus was evaluated during a mission extension planning phase in 2009. However, this never came to fruition, as it would have taken about twenty years for Cassini to get to the Uranian system after departing Saturn. While several proposals are currently under consideration, none have been confirmed yet.",
+    img: "https://images4.alphacoders.com/734/thumb-1920-734987.jpg",
+  },
+  {
+    question: "Uranus is named after the greek god of",
+    options: ["love and beauty", "wisdom", "war", "sky"],
+    correct_option: "sky",
+    hint: "Name Uranus – the Latinized version of the Greek god Ouranos",
+    points: 5,
+    explanation:
+      "Herschel originally wanted to call Uranus “George’s Star” after King George III of England. However, this was not a popular name outside of England. Eventually, the astronomical community officially settled on the name Uranus – the Latinized version of the Greek god of the sky, Ouranos – and the name stuck.",
+    img: "https://static.wikia.nocookie.net/villains/images/2/29/Uranus-0.jpg/revision/latest?cb=20161024224705",
+  },
+];
+
+export const requiredPointsToAccessUranus = 150;

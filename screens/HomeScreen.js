@@ -134,9 +134,10 @@ const HomeScreen = () => {
         {/* Start a New Quiz button */}
         <Button
           onPress={() => {
-            navigation.navigate("Quiz");
+            // navigation.navigate("Quiz");
+            navigation.navigate("Solar System")
           }}
-          title="Start a new Quiz"
+          title="Start your Journey!"
         />
 
         {/* Fact Of The Day button */}

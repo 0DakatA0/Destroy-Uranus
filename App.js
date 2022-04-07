@@ -18,30 +18,30 @@ const App = () => {
 
   return (
     
-    <SolarSystemScreen />
-    
-    // <NavigationContainer>
-    //   <Stack.Navigator
-    //     initialRouteName={user ? "Home" : "Login"}
-    //     screenOptions={{
-    //       headerShown: false,
-    //     }}
-    //     component={HomeScreen}
-    //   >
-    //     <Stack.Screen name="Home" component={HomeScreen} />
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName={user ? "Home" : "Login"}
+        screenOptions={{
+          headerShown: false,
+        }}
+        component={HomeScreen}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
 
-    //     <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
 
-    //     <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
 
-    //     <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
 
-    //     <Stack.Screen name="Quiz" component={QuizScreen} />
+        <Stack.Screen name="Quiz" component={QuizScreen} />
 
-    //     <Stack.Screen name="Fact of the Day" component={DailyFact} />
+        <Stack.Screen name="Solar System" component={SolarSystemScreen} />
 
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+        <Stack.Screen name="Fact of the Day" component={DailyFact} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

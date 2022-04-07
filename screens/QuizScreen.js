@@ -32,9 +32,7 @@ import Button from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const { width, height } = Dimensions.get("window");
-
-const QuizScreen = () => {
+const QuizScreen = ({ navigation, route }) => {
   // Initializing States
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
@@ -47,20 +45,23 @@ const QuizScreen = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [useHints, setUseHints] = useState(false);
 
-  const [quizData, setQuizData] = useState([]);
+  const quizData = route.params.data;
+
+  // const [quizData, setQuizData] = useState([]);
 
   const user = auth.currentUser;
   // const db = getDatabase();
-  const navigation = useNavigation();
+  //   const navigation = useNavigation();
 
   // Get Quiz and User data from DB
   useEffect(() => {
-    const quizRef = ref(rdb, "quiz");
-    onValue(quizRef, (snapshot) => {
-      const data = snapshot.val();
-      // console.log(data);
-      setQuizData(data);
-    });
+    // const quizRef = ref(rdb, "quiz");
+    // onValue(quizRef, (snapshot) => {
+    //   const data = snapshot.val();
+    //   // console.log(data);
+    //   setQuizData(data);
+    // });
+    // console.log(quizData);
 
     const fetchUserData = () => {
       get(child(ref(rdb), `users/${user.uid}`))
@@ -79,9 +80,9 @@ const QuizScreen = () => {
     fetchUserData();
   }, []);
 
-  // Check if Option is Valid
+// Check if Option is Valid
   const validateAnswer = (selectedOption) => {
-    let correctOption = quizData[currentQuestionIndex]?.answer;
+    let correctOption = quizData[currentQuestionIndex]?.correct_option;
     setCurrentOptionSelected(selectedOption);
     setCorrectOption(correctOption);
     setIsOptionDisabled(true);
@@ -89,7 +90,7 @@ const QuizScreen = () => {
       // Check if Used Hints
       if (useHints) {
         // Set Score
-        setScore(score + quizData[currentQuestionIndex]?.points - 1);
+        setScore(score + quizData[currentQuestionIndex]?.points - 2);
       } else {
         setScore(score + quizData[currentQuestionIndex]?.points);
       }
@@ -202,7 +203,7 @@ const QuizScreen = () => {
         <TouchableOpacity
           onPress={() => {
             setUseHints(true);
-            Alert.alert("Hint", quizData[currentQuestionIndex]?.hint, [
+            Alert.alert("Hint...", quizData[currentQuestionIndex]?.hint, [
               { text: "OK" },
             ]);
           }}
@@ -223,7 +224,7 @@ const QuizScreen = () => {
                 fontSize: 20,
               }}
             >
-              (-1 point)
+              (-2 points)
             </Text>
           </Text>
         </TouchableOpacity>
@@ -408,7 +409,7 @@ const QuizScreen = () => {
         {/* Explanation Window */}
         <Modal
           visible={showExplanation}
-          animationType="fade"
+          animationType="slide"
           transparent={true}
         >
           <View
@@ -436,7 +437,7 @@ const QuizScreen = () => {
                     color: colors.white,
                   }}
                 >
-                  {quizData[currentQuestionIndex]?.answer}...
+                  {quizData[currentQuestionIndex]?.correct_option}...
                 </Text>
                 <Image
                   style={{
@@ -524,12 +525,13 @@ const QuizScreen = () => {
 
               {/* Go Back button */}
               <Button
-                title="Home"
+                title="Finish"
                 onPress={() => {
                   update(ref(rdb, "users/" + user.uid), {
                     score,
                   });
                   navigation.navigate("Home");
+                // navigation.goBack();
                 }}
               />
             </View>
@@ -553,10 +555,4 @@ const colors = {
   black: "#171717",
   white: "#FFFFFF",
   background: "#744EBF",
-};
-
-const sizes = {
-  base: 10,
-  width,
-  height,
 };

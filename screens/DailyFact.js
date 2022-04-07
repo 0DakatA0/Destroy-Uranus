@@ -29,7 +29,7 @@ const DailyFact = () => {
         <Image style={styles.image} source={{ uri: image }} />
         <Text style={styles.bigText}> {name}</Text>
         <Text style={styles.justText}> {text}</Text>
-        <Button title="Go Back" onPress={() => navigation.navigate("Home")} />
+        <Button title="Go Back" onPress={() => navigation.goBack()} />
       </View>
   );
 };

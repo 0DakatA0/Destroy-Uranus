@@ -69,7 +69,7 @@ const LeaderBoard = () => {
         style={styles.btn}
         onPress={() => navigation.goBack()}
       >
-        <Text style={styles.btnText}>Return to Home</Text>
+        <Text style={styles.btnText}>Go Back</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     marginBottom: 10,
+    bottom: 50
   },
   btnText: {
     fontWeight: "700",
