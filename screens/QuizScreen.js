@@ -46,6 +46,7 @@ const QuizScreen = ({ navigation, route }) => {
   const [useHints, setUseHints] = useState(false);
 
   const quizData = route.params.data;
+  // console.log(quizData)
 
   // const [quizData, setQuizData] = useState([]);
 

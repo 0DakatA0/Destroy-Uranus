@@ -15,23 +15,36 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
 import PlanetModal from "../components/PlanetModal";
 
-import MercuryData, {
-  requiredPointsToAccessMercury,
-} from "../data/MercuryData.json";
-import {VenusData,  requiredPointsToAccessVenus } from "../data/VenusData.json";
-import {EarthData,  requiredPointsToAccessEarth } from "../data/EarthData";
-import {MarsData,  requiredPointsToAccessMars } from "../data/MarsData.json";
-import {JupiterData, 
-  requiredPointsToAccessJupiter,
-} from "../data/JupiterData.json";
-import {SaturnData,  requiredPointsToAccessSaturn } from "../data/SaturnData.json";
-import {UranusData,  requiredPointsToAccessUranus } from "../data/UranusData.json";
-import {NeptuneData, 
-  requiredPointsToAccessNeptune,
-} from "../data/NeptuneData.json";
+// import MercuryData, {
+//   requiredPointsToAccessMercury,
+// } from "../data/MercuryData.json";
+// import {VenusData,  requiredPointsToAccessVenus } from "../data/VenusData.json";
+// import {EarthData,  requiredPointsToAccessEarth } from "../data/EarthData.json";
+// import {MarsData,  requiredPointsToAccessMars } from "../data/MarsData.json";
+// import {JupiterData, 
+//   requiredPointsToAccessJupiter,
+// } from "../data/JupiterData.json";
+// import {SaturnData,  requiredPointsToAccessSaturn } from "../data/SaturnData.json";
+// import {UranusData,  requiredPointsToAccessUranus } from "../data/UranusData.json";
+// import {NeptuneData, 
+//   requiredPointsToAccessNeptune,
+// } from "../data/NeptuneData.json";
 
 const SolarSystemScreen = ({ navigation: { navigate } }) => {
   // const navigation = useNavigation();
+
+  const mercuryData = require("../data/MercuryData.json")
+  const venusData = require("../data/VenusData.json")
+  const earthData = require("../data/EarthData.json")
+  const marsData = require("../data/MarsData.json")
+  const jupiterData = require("../data/JupiterData.json")
+  const saturnData = require("../data/SaturnData.json")
+  const uranusData = require("../data/UranusData.json")
+  const neptuneData = require("../data/NeptuneData.json")
+
+  // console.log(mercuryData.requiredPointsToAccessMercury)
+  // console.log(mercuryData.MercuryData)
+  // console.log("Points = " + earthData.requiredPointsToAccessEarth)
 
   const [showMercury, setShowMercury] = useState(false);
   const [showVenus, setShowVenus] = useState(false);
@@ -134,8 +147,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Mercury"
           onConfirm={handleConfirmMercury}
           imageSource={require("../assets/Mercury.png")}
-          data={MercuryData}
-          reqPoints={requiredPointsToAccessMercury}
+          // data={MercuryData}
+          data={mercuryData.MercuryData}
+          // reqPoints={requiredPointsToAccessMercury}
+          reqPoints={mercuryData.requiredPointsToAccessMercury}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -160,9 +175,11 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Venus"
           onConfirm={handleConfirmVenus}
           imageSource={require("../assets/Venus.png")}
-          data={VenusData}
+          // data={VenusData}
+          data={venusData.VenusData}
           // reqPoints={VenusData[0].requiredPointsToAccess}
-          reqPoints={requiredPointsToAccessVenus}
+          // reqPoints={requiredPointsToAccessVenus}
+          reqPoints={venusData.requiredPointsToAccessVenus}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -187,8 +204,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Earth"
           onConfirm={handleConfirmEarth}
           imageSource={require("../assets/Earth.png")}
-          data={EarthData}
-          reqPoints={requiredPointsToAccessEarth}
+          // data={EarthData}
+          data={earthData.EarthData}
+          // reqPoints={requiredPointsToAccessEarth}
+          reqPoints={earthData.requiredPointsToAccessEarth}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -213,8 +232,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Mars"
           onConfirm={handleConfirmMars}
           imageSource={require("../assets/Mars.png")}
-          data={MarsData}
-          reqPoints={requiredPointsToAccessMars}
+          // data={MarsData}
+          data={marsData.MarsData}
+          // reqPoints={requiredPointsToAccessMars}
+          reqPoints={marsData.requiredPointsToAccessMars}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -239,8 +260,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Jupiter"
           onConfirm={handleConfirmJupiter}
           imageSource={require("../assets/Jupiter.png")}
-          data={JupiterData}
-          reqPoints={requiredPointsToAccessJupiter}
+          // data={JupiterData}
+          data={jupiterData.JupiterData}
+          // reqPoints={requiredPointsToAccessJupiter}
+          reqPoints={jupiterData.requiredPointsToAccessJupiter}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -265,8 +288,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Saturn"
           onConfirm={handleConfirmSaturn}
           imageSource={require("../assets/Saturn.png")}
-          data={SaturnData}
-          reqPoints={requiredPointsToAccessSaturn}
+          // data={SaturnData}
+          data={saturnData.SaturnData}
+          // reqPoints={requiredPointsToAccessSaturn}
+          reqPoints={saturnData.requiredPointsToAccessSaturn}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -291,8 +316,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Uranus"
           onConfirm={handleConfirmUranus}
           imageSource={require("../assets/Uranus.png")}
-          data={UranusData}
-          reqPoints={requiredPointsToAccessUranus}
+          // data={UranusData}
+          data={uranusData.UranusData}
+          // reqPoints={requiredPointsToAccessUranus}
+          reqPoints={uranusData.requiredPointsToAccessUranus}
         />
       </TouchableOpacity>
       <TouchableOpacity
@@ -317,8 +344,10 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           title="Neptune"
           onConfirm={handleConfirmNeptune}
           imageSource={require("../assets/Neptune.png")}
-          data={NeptuneData}
-          reqPoints={requiredPointsToAccessNeptune}
+          // data={NeptuneData}
+          data={neptuneData.NeptuneData}
+          // reqPoints={requiredPointsToAccessNeptune}
+          reqPoints={neptuneData.requiredPointsToAccessNeptune}
         />
       </TouchableOpacity>
       <View
@@ -339,7 +368,7 @@ const SolarSystemScreen = ({ navigation: { navigate } }) => {
           Choose a planet!
         </Text>
         <Button
-          title="Go Back"
+          title="Go back"
           onPress={() => {
             // update(ref(rdb, "users/" + user.uid), {
             //   score,
